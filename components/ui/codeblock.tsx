@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { atomDark, oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {
   Check,
   Copy,
@@ -93,12 +93,12 @@ export const CodeBlock = ({
       case "jsx":
       case "typescript":
       case "tsx":
-        return <Code2 size="1em" className="text-yellow-400" />;
+        return <Code2 size="1em" className="text-yellow-500 dark:text-yellow-400" />;
       case "bash":
       case "shell":
-        return <Terminal size="1em" className="text-green-400" />;
+        return <Terminal size="1em" className="text-green-600 dark:text-green-400" />;
       default:
-        return <File size="1em" className="text-blue-400" />;
+        return <File size="1em" className="text-blue-600 dark:text-blue-400" />;
     }
   };
 
@@ -113,22 +113,40 @@ export const CodeBlock = ({
 
   return (
     <div
-      className={`relative w-full rounded-xl overflow-hidden shadow-2xl ${
-        theme === "dark" ? "bg-slate-900" : "bg-white"
-      } border ${theme === "dark" ? "border-slate-700" : "border-gray-200"}`}
+      className={`relative w-full rounded-xl overflow-hidden shadow-2xl backdrop-blur-lg backdrop-saturate-150 ${
+        theme === "dark" 
+          ? "bg-slate-900/20 border border-slate-700/30" 
+          : "bg-white/10 border border-white/20 shadow-white/20"
+      }`}
+      style={{
+        backdropFilter: theme === "light" 
+          ? "blur(20px) saturate(180%) brightness(110%)" 
+          : "blur(16px) saturate(150%)"
+      }}
     >
       <div
-        className={`flex items-stretch min-h-[3rem] ${
+        className={`flex items-stretch min-h-[3rem] backdrop-blur-sm ${
           theme === "dark"
-            ? "bg-slate-800 border-b border-slate-700"
-            : "bg-gray-50 border-b border-gray-200"
+            ? "bg-slate-800/30 border-b border-slate-700/30"
+            : "bg-white/5 border-b border-white/10"
         }`}
+        style={{
+          backdropFilter: theme === "light" 
+            ? "blur(10px) saturate(120%) brightness(105%)" 
+            : undefined
+        }}
       >
         <div className="flex-1 flex items-center min-w-0 px-3">
           <div className="flex gap-2 mr-3 shrink-0">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <div className={`w-3 h-3 rounded-full shadow-sm ${
+              theme === "dark" ? "bg-red-500/80" : "bg-red-400/90 shadow-red-200/50"
+            }`}></div>
+            <div className={`w-3 h-3 rounded-full shadow-sm ${
+              theme === "dark" ? "bg-yellow-500/80" : "bg-yellow-400/90 shadow-yellow-200/50"
+            }`}></div>
+            <div className={`w-3 h-3 rounded-full shadow-sm ${
+              theme === "dark" ? "bg-green-500/80" : "bg-green-400/90 shadow-green-200/50"
+            }`}></div>
           </div>
 
           {breadcrumb.length > 0 && (
@@ -136,7 +154,7 @@ export const CodeBlock = ({
               <Folder
                 size="1em"
                 className={`shrink-0 ${
-                  theme === "dark" ? "text-slate-400" : "text-gray-500"
+                  theme === "dark" ? "text-slate-300/80" : "text-gray-700/90"
                 }`}
               />
               <div className="flex items-center min-w-0 ml-2">
@@ -144,7 +162,7 @@ export const CodeBlock = ({
                   <React.Fragment key={index}>
                     <span
                       className={`text-xs truncate ${
-                        theme === "dark" ? "text-slate-400" : "text-gray-500"
+                        theme === "dark" ? "text-slate-300/80" : "text-gray-700/90"
                       }`}
                     >
                       {crumb}
@@ -153,7 +171,7 @@ export const CodeBlock = ({
                       <ChevronRight
                         size="0.75em"
                         className={`shrink-0 mx-1 ${
-                          theme === "dark" ? "text-slate-500" : "text-gray-400"
+                          theme === "dark" ? "text-slate-400/80" : "text-gray-600/80"
                         }`}
                       />
                     )}
@@ -167,9 +185,9 @@ export const CodeBlock = ({
         <div className="flex items-center justify-end shrink-0 px-2">
           {stats && (
             <div
-              className={`text-xs mx-2 ${
-                theme === "dark" ? "text-slate-400" : "text-gray-500"
-              } truncate hidden md:block`}
+              className={`text-xs mx-2 truncate hidden md:block ${
+                theme === "dark" ? "text-slate-300/80" : "text-gray-700/90"
+              }`}
             >
               {stats.lines}L • {stats.words}W
             </div>
@@ -178,46 +196,52 @@ export const CodeBlock = ({
           <div className="flex">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className={`p-2 hover:${
-                theme === "dark" ? "bg-slate-700" : "bg-gray-200"
-              } transition-colors`}
+              className={`p-2 transition-all duration-200 rounded-md backdrop-blur-sm ${
+                theme === "dark" 
+                  ? "hover:bg-slate-700/40" 
+                  : "hover:bg-white/20 hover:shadow-md"
+              }`}
               title="Toggle fullscreen"
             >
               <Maximize2
                 size="1em"
                 className={
-                  theme === "dark" ? "text-slate-400" : "text-gray-500"
+                  theme === "dark" ? "text-slate-300/90" : "text-gray-700/90"
                 }
               />
             </button>
             <button
               onClick={downloadCode}
-              className={`p-2 hover:${
-                theme === "dark" ? "bg-slate-700" : "bg-gray-200"
-              } transition-colors`}
+              className={`p-2 transition-all duration-200 rounded-md backdrop-blur-sm ${
+                theme === "dark" 
+                  ? "hover:bg-slate-700/40" 
+                  : "hover:bg-white/20 hover:shadow-md"
+              }`}
               title="Download code"
             >
               <Download
                 size="1em"
                 className={
-                  theme === "dark" ? "text-slate-400" : "text-gray-500"
+                  theme === "dark" ? "text-slate-300/90" : "text-gray-700/90"
                 }
               />
             </button>
             <button
               onClick={copyToClipboard}
-              className={`p-2 hover:${
-                theme === "dark" ? "bg-slate-700" : "bg-gray-200"
-              } transition-colors`}
+              className={`p-2 transition-all duration-200 rounded-md backdrop-blur-sm ${
+                theme === "dark" 
+                  ? "hover:bg-slate-700/40" 
+                  : "hover:bg-white/20 hover:shadow-md"
+              }`}
               title="Copy code"
             >
               {copied ? (
-                <Check size="1em" className="text-green-400" />
+                <Check size="1em" className="text-green-500" />
               ) : (
                 <Copy
                   size="1em"
                   className={
-                    theme === "dark" ? "text-slate-400" : "text-gray-500"
+                    theme === "dark" ? "text-slate-300/90" : "text-gray-700/90"
                   }
                 />
               )}
@@ -228,24 +252,29 @@ export const CodeBlock = ({
 
       {tabsExist && (
         <div
-          className={`flex border-b ${
+          className={`flex border-b backdrop-blur-sm overflow-x-auto ${
             theme === "dark"
-              ? "border-slate-700 bg-slate-800"
-              : "border-gray-200 bg-gray-50"
-          } overflow-x-auto`}
+              ? "border-slate-700/30 bg-slate-800/20"
+              : "border-white/10 bg-white/5"
+          }`}
+          style={{
+            backdropFilter: theme === "light" 
+              ? "blur(8px) saturate(110%)" 
+              : undefined
+          }}
         >
           {tabs.map((tab, index) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}
-              className={`flex items-center gap-2 px-4 py-2 text-sm transition-all duration-200 border-b-2 shrink-0 ${
+              className={`flex items-center gap-2 px-4 py-2 text-sm transition-all duration-200 border-b-2 shrink-0 backdrop-blur-sm ${
                 activeTab === index
                   ? theme === "dark"
-                    ? "text-white border-blue-400 bg-slate-900"
-                    : "text-gray-900 border-blue-500 bg-white"
+                    ? "text-white border-blue-400 bg-slate-900/40"
+                    : "text-gray-900 border-blue-500 bg-white/20 shadow-sm"
                   : theme === "dark"
-                  ? "text-slate-400 border-transparent hover:text-slate-200 hover:bg-slate-700"
-                  : "text-gray-600 border-transparent hover:text-gray-800 hover:bg-gray-100"
+                  ? "text-slate-300/80 border-transparent hover:text-slate-100 hover:bg-slate-700/30"
+                  : "text-gray-700/80 border-transparent hover:text-gray-900 hover:bg-white/15"
               }`}
             >
               {getLanguageIcon(tab.language || language)}
@@ -257,17 +286,22 @@ export const CodeBlock = ({
 
       {!tabsExist && filename && (
         <div
-          className={`flex items-center px-3 py-2 border-b ${
+          className={`flex items-center px-3 py-2 border-b backdrop-blur-sm ${
             theme === "dark"
-              ? "border-slate-700 bg-slate-800"
-              : "border-gray-200 bg-gray-50"
+              ? "border-slate-700/30 bg-slate-800/20"
+              : "border-white/10 bg-white/5"
           }`}
+          style={{
+            backdropFilter: theme === "light" 
+              ? "blur(8px) saturate(110%)" 
+              : undefined
+          }}
         >
           <div className="flex items-center gap-2 min-w-0">
             {getLanguageIcon(language)}
             <span
               className={`text-sm font-medium truncate ${
-                theme === "dark" ? "text-slate-200" : "text-gray-700"
+                theme === "dark" ? "text-slate-200/90" : "text-gray-800/90"
               }`}
             >
               {filename}
@@ -277,13 +311,18 @@ export const CodeBlock = ({
       )}
 
       <div
-        className={`relative ${
+        className={`relative backdrop-blur-sm ${
           isExpanded ? "max-h-screen overflow-auto" : "max-h-96 overflow-auto"
-        }`}
+        } ${theme === "dark" ? "bg-slate-900/10" : "bg-white/5"}`}
+        style={{
+          backdropFilter: theme === "light" 
+            ? "blur(8px) saturate(110%) brightness(102%)" 
+            : undefined
+        }}
       >
         <SyntaxHighlighter
           language={activeLanguage}
-          style={theme === "dark" ? atomDark : undefined}
+          style={theme === "dark" ? atomDark : oneLight}
           customStyle={{
             margin: 0,
             padding: "1rem",
@@ -296,9 +335,9 @@ export const CodeBlock = ({
           lineNumberStyle={{
             minWidth: "3em",
             paddingRight: "1em",
-            color: theme === "dark" ? "#64748b" : "#9ca3af",
+            color: theme === "dark" ? "#64748b80" : "#6b728090",
             borderRight: `1px solid ${
-              theme === "dark" ? "#334155" : "#e5e7eb"
+              theme === "dark" ? "#33415550" : "#e2e8f050"
             }`,
             marginRight: "1em",
           }}
@@ -306,13 +345,15 @@ export const CodeBlock = ({
             style: {
               backgroundColor: activeHighlightLines.includes(lineNumber)
                 ? theme === "dark"
-                  ? "rgba(59, 130, 246, 0.1)"
-                  : "rgba(59, 130, 246, 0.05)"
+                  ? "rgba(59, 130, 246, 0.15)"
+                  : "rgba(59, 130, 246, 0.12)"
                 : "transparent",
               display: "block",
               width: "100%",
               borderLeft: activeHighlightLines.includes(lineNumber)
-                ? "3px solid #3b82f6"
+                ? theme === "dark"
+                  ? "3px solid #3b82f680"
+                  : "3px solid #3b82f6a0"
                 : "3px solid transparent",
               paddingLeft: "0.5rem",
             },
@@ -325,11 +366,16 @@ export const CodeBlock = ({
 
       {showStats && stats && (
         <div
-          className={`px-3 py-2 border-t text-xs ${
+          className={`px-3 py-2 border-t text-xs backdrop-blur-sm flex items-center justify-between min-h-[2.5rem] ${
             theme === "dark"
-              ? "border-slate-700 bg-slate-800 text-slate-400"
-              : "border-gray-200 bg-gray-50 text-gray-500"
-          } flex items-center justify-between min-h-[2.5rem]`}
+              ? "border-slate-700/30 bg-slate-800/20 text-slate-300/80"
+              : "border-white/10 bg-white/5 text-gray-700/90"
+          }`}
+          style={{
+            backdropFilter: theme === "light" 
+              ? "blur(8px) saturate(110%)" 
+              : undefined
+          }}
         >
           <div className="flex items-center gap-3 min-w-0">
             <span className="truncate">{activeLanguage.toUpperCase()}</span>

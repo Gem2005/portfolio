@@ -260,7 +260,7 @@ const NavbarFlow: React.FC<NavbarFlowProps> = ({
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={emblemMotion}
-            className="bg-gray-200/80 dark:bg-black/95 backdrop-blur-sm text-gray-800 dark:text-gray-200 px-4 lg:px-8 py-3 lg:py-4 rounded-full font-semibold text-lg lg:text-xl z-10 flex-shrink-0"
+            className=" text-gray-800 dark:text-gray-200 px-3 lg:px-4 py-2 lg:py-3 rounded-full z-10 flex-shrink-0 flex items-center justify-center min-w-fit"
           >
             {emblem}
           </motion.div>
@@ -563,7 +563,7 @@ const NavbarFlow: React.FC<NavbarFlowProps> = ({
               animate={emblemMotion}
               className="mr-4 flex-shrink-0"
             >
-              <div className="bg-gray-200/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full font-semibold text-base">
+              <div className="text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full font-semibold text-base">
                 {emblem}
               </div>
             </motion.div>

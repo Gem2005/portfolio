@@ -8,17 +8,18 @@ interface WelcomeScreenProps {
     onNavigate: (fileId: string) => void;
 }
 
+const bootSequence = [
+    "Initializing system environment...",
+    "Loading kernel modules...",
+    "Mounting file systems...",
+    "Starting network services...",
+    "User authentication... [OK]",
+    "Loading portfolio data... [OK]",
+    "System ready.",
+];
+
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
     const [lines, setLines] = useState<string[]>([]);
-    const bootSequence = [
-        "Initializing system environment...",
-        "Loading kernel modules...",
-        "Mounting file systems...",
-        "Starting network services...",
-        "User authentication... [OK]",
-        "Loading portfolio data... [OK]",
-        "System ready.",
-    ];
 
     useEffect(() => {
         let delay = 0;
@@ -28,7 +29,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
                 setLines((prev) => [...prev, line]);
             }, delay);
         });
-    }, [bootSequence]);
+    }, []);
 
     return (
         <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-hidden relative z-10 select-none">

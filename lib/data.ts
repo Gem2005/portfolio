@@ -1,3 +1,80 @@
+export const aboutData = {
+    name: "Gemini Sharma",
+    role: "Software Development Engineer",
+    description: "I am a Software Development Engineer and B.Tech student at VIT Chennai. I specialize in Full Stack Development and DevOps, with a strong focus on building scalable, intelligent applications using modern technologies like Next.js, Kubernetes, and AI integration.",
+    education: [
+        {
+            school: "Vellore Institute of Technology, Chennai",
+            degree: "B.Tech. in Electronics and Computer Engineering",
+            period: "Aug 2023 – July 2027",
+            score: "CGPA: 6.36"
+        },
+        {
+            school: "Matrix High School, Sikar",
+            degree: "Board of Secondary Education, Rajasthan",
+            period: "April 2022 – May 2023",
+            score: "86.20%"
+        }
+    ],
+    skills: [
+        "Python, Java, C++",
+        "Next.js, React, TypeScript",
+        "Node.js, Express, PostgreSQL",
+        "Kubernetes, Docker, Azure",
+        "Terraform, Jenkins, ArgoCD"
+    ]
+};
+
+export const experienceData = [
+    {
+        company: "Verfolia",
+        role: "Software Development Engineer",
+        period: "Nov 2025 – Present",
+        description: "Built a full-stack resume platform with Gemini AI. Engineered a scalable serverless backend, cutting DB retrieval times by 90% and achieving <100ms global latency."
+    },
+    {
+        company: "Kreo",
+        role: "Campus Ambassador",
+        period: "Jan 2025 – Present",
+        description: "Partnered with the core team for marketing strategies. Orchestrated outreach initiatives driving a 60% boost in user engagement."
+    },
+    {
+        company: "PlaceXP",
+        role: "Tech Lead",
+        period: "2025 – Present",
+        description: "Directed website development and maintenance, streamlining event registration and increasing participation by 30%."
+    }
+];
+
+export const projectsData = [
+    {
+        name: "Personal Task Management System",
+        description: "Real-time task manager using Next.js, Supabase, and Drizzle. Cut query times by 80% with <150ms sync latency.",
+        techStack: ["Next.js", "TypeScript", "Supabase", "Drizzle"],
+        link: "#"
+    },
+    {
+        name: "E-Commerce App on Azure AKS",
+        description: "Scalable microservices app deployed on Kubernetes with Helm. Managed 12+ services and resolved critical networking challenges.",
+        techStack: ["Kubernetes", "AKS", "Helm", "Microservices"],
+        link: "#"
+    },
+    {
+        name: "TrialVision",
+        description: "AI-powered clinical trial outcome predictor (95% accuracy) using Random Forest and SHAP, deployed via FastAPI.",
+        techStack: ["Python", "ML", "FastAPI", "Gemini API"],
+        link: "#"
+    }
+];
+
+export const contactData = {
+    email: "geminisharma2005@gmail.com",
+    phone: "+918302033740",
+    location: "Chennai, Tamil Nadu",
+    github: "https://github.com",
+    linkedin: "https://linkedin.com"
+};
+
 export const files = {
     "about.tsx": {
         name: "about.tsx",
@@ -9,18 +86,21 @@ export const About = () => {
     <div className="about-me">
       <h1>About Me</h1>
       <p>
-        I am a passionate Full Stack Developer with a love for building
-        scalable and user-friendly web applications. I enjoy solving
-        complex problems and learning new technologies.
+        ${aboutData.description}
       </p>
       
+      <h2>Education</h2>
+      <ul>
+${aboutData.education.map(edu => `        <li>
+          <strong>${edu.school}</strong><br/>
+          ${edu.degree} (${edu.period})<br/>
+          <span className="text-sm text-gray-400">${edu.score}</span>
+        </li>`).join('\n')}
+      </ul>
+
       <h2>Skills</h2>
       <ul>
-        <li>React / Next.js</li>
-        <li>TypeScript / JavaScript</li>
-        <li>Node.js / Express</li>
-        <li>Tailwind CSS</li>
-        <li>PostgreSQL / MongoDB</li>
+${aboutData.skills.map(skill => `        <li>${skill}</li>`).join('\n')}
       </ul>
     </div>
   );
@@ -29,26 +109,7 @@ export const About = () => {
     "experience.json": {
         name: "experience.json",
         language: "json",
-        content: `[
-  {
-    "company": "Tech Corp",
-    "role": "Senior Frontend Engineer",
-    "period": "2022 - Present",
-    "description": "Leading the frontend team in building a modern SaaS platform using Next.js and Tailwind CSS."
-  },
-  {
-    "company": "Startup Inc",
-    "role": "Full Stack Developer",
-    "period": "2020 - 2022",
-    "description": "Developed and maintained multiple client projects using MERN stack."
-  },
-  {
-    "company": "Freelance",
-    "role": "Web Developer",
-    "period": "2018 - 2020",
-    "description": "Worked with various clients to deliver custom web solutions."
-  }
-]`
+        content: JSON.stringify(experienceData, null, 2)
     },
     "projects.ts": {
         name: "projects.ts",
@@ -60,54 +121,27 @@ export const About = () => {
   link: string;
 }
 
-export const projects: Project[] = [
-  {
-    name: "E-commerce Platform",
-    description: "A full-featured online store with cart and payment integration.",
-    techStack: ["Next.js", "Stripe", "Prisma"],
-    link: "https://github.com/user/ecommerce"
-  },
-  {
-    name: "Task Management App",
-    description: "A collaborative task manager with real-time updates.",
-    techStack: ["React", "Firebase", "Tailwind"],
-    link: "https://github.com/user/taskmanager"
-  },
-  {
-    name: "Portfolio Website",
-    description: "A VS Code themed portfolio website.",
-    techStack: ["Next.js", "Framer Motion", "Lucide React"],
-    link: "https://github.com/user/portfolio"
-  }
-];`
+export const projects: Project[] = ${JSON.stringify(projectsData, null, 2).replace(/"([^"]+)":/g, '$1:')};`
     },
     "contact.css": {
         name: "contact.css",
         language: "css",
-        content: `.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 500px;
-  margin: 0 auto;
+        content: `.contact-container {
+  padding: 2rem;
 }
 
-.input-field {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.contact-info {
+  margin-bottom: 2rem;
+  color: #e0e0e0;
 }
 
-.submit-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  cursor: pointer;
+.contact-link {
+  color: #3b82f6;
+  text-decoration: none;
 }
 
-.submit-btn:hover {
-  background-color: #0056b3;
+.contact-link:hover {
+  text-decoration: underline;
 }`
     }
 };

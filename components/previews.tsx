@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink, Mail, Send } from "lucide-react";
+import { aboutData, experienceData, projectsData, contactData } from "@/lib/data";
 
 export const AboutPreview = () => (
     <div className="p-8 text-gray-200 font-sans">
@@ -13,22 +14,34 @@ export const AboutPreview = () => (
                 About Me
             </h1>
             <p className="text-lg leading-relaxed mb-8 text-gray-300">
-                I am a passionate Full Stack Developer with a love for building scalable
-                and user-friendly web applications. I enjoy solving complex problems and
-                learning new technologies.
+                {aboutData.description}
             </p>
 
+            <h2 className="text-2xl font-semibold mb-4 text-blue-400">Education</h2>
+            <div className="mb-8 space-y-4">
+                {aboutData.education.map((edu, i) => (
+                    <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 }}
+                        className="bg-white/5 p-4 rounded-lg border border-white/10"
+                    >
+                        <h3 className="font-bold text-white">{edu.school}</h3>
+                        <p className="text-gray-300">{edu.degree}</p>
+                        <div className="flex justify-between text-sm text-gray-400 mt-1">
+                            <span>{edu.period}</span>
+                            <span>{edu.score}</span>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+
             <h2 className="text-2xl font-semibold mb-4 text-blue-400">Skills</h2>
-            <ul className="grid grid-cols-2 gap-3">
-                {[
-                    "React / Next.js",
-                    "TypeScript / JavaScript",
-                    "Node.js / Express",
-                    "Tailwind CSS",
-                    "PostgreSQL / MongoDB",
-                ].map((skill, i) => (
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aboutData.skills.map((skill, i) => (
                     <motion.li
-                        key={skill}
+                        key={i}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.1 }}
@@ -44,35 +57,11 @@ export const AboutPreview = () => (
 );
 
 export const ExperiencePreview = () => {
-    const experiences = [
-        {
-            company: "Tech Corp",
-            role: "Senior Frontend Engineer",
-            period: "2022 - Present",
-            description:
-                "Leading the frontend team in building a modern SaaS platform using Next.js and Tailwind CSS.",
-        },
-        {
-            company: "Startup Inc",
-            role: "Full Stack Developer",
-            period: "2020 - 2022",
-            description:
-                "Developed and maintained multiple client projects using MERN stack.",
-        },
-        {
-            company: "Freelance",
-            role: "Web Developer",
-            period: "2018 - 2020",
-            description:
-                "Worked with various clients to deliver custom web solutions.",
-        },
-    ];
-
     return (
         <div className="p-8 font-sans">
             <h2 className="text-3xl font-bold mb-8 text-white">Experience</h2>
             <div className="space-y-8 border-l-2 border-blue-500/30 ml-3 pl-8 relative">
-                {experiences.map((exp, i) => (
+                {experienceData.map((exp, i) => (
                     <motion.div
                         key={i}
                         initial={{ opacity: 0, x: 20 }}
@@ -96,33 +85,11 @@ export const ExperiencePreview = () => {
 };
 
 export const ProjectsPreview = () => {
-    const projects = [
-        {
-            name: "E-commerce Platform",
-            description:
-                "A full-featured online store with cart and payment integration.",
-            techStack: ["Next.js", "Stripe", "Prisma"],
-            link: "#",
-        },
-        {
-            name: "Task Management App",
-            description: "A collaborative task manager with real-time updates.",
-            techStack: ["React", "Firebase", "Tailwind"],
-            link: "#",
-        },
-        {
-            name: "Portfolio Website",
-            description: "A VS Code themed portfolio website.",
-            techStack: ["Next.js", "Framer Motion", "Lucide React"],
-            link: "#",
-        },
-    ];
-
     return (
         <div className="p-8 font-sans">
             <h2 className="text-3xl font-bold mb-8 text-white">Projects</h2>
             <div className="grid gap-6">
-                {projects.map((project, i) => (
+                {projectsData.map((project, i) => (
                     <motion.div
                         key={i}
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -163,6 +130,14 @@ export const ContactPreview = () => (
             <h2 className="text-2xl font-bold mb-6 text-center text-white">
                 Get in Touch
             </h2>
+            <div className="mb-6 text-center text-gray-300">
+                <p className="mb-2">
+                    <span className="font-bold text-blue-400">Email:</span> {contactData.email}
+                </p>
+                <p>
+                    <span className="font-bold text-blue-400">Phone:</span> {contactData.phone}
+                </p>
+            </div>
             <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                 <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">
@@ -173,7 +148,7 @@ export const ContactPreview = () => (
                         <input
                             type="email"
                             className="w-full bg-black/20 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-white focus:outline-none focus:border-blue-500 transition-colors"
-                            placeholder="hello@example.com"
+                            placeholder={contactData.email}
                         />
                     </div>
                 </div>

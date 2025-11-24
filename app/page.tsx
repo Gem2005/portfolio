@@ -6,6 +6,8 @@ import { CodeBlock } from "@/components/ui/codeblock";
 import { Terminal } from "@/components/ui/terminal";
 import { WelcomeScreen } from "@/components/ui/welcome-screen";
 import { files } from "@/lib/data";
+import { ResizablePanel } from "@/components/ui/resizable-panel";
+import { AboutPreview, ExperiencePreview, ProjectsPreview, ContactPreview } from "@/components/previews";
 import {
   Search,
   GitBranch,
@@ -267,13 +269,33 @@ export default function Home() {
 
                 {/* Code Area */}
                 <div className="flex-1 overflow-hidden p-0 relative">
-                  <CodeBlock
-                    language={currentFile.language}
-                    filename={currentFile.name}
-                    code={currentFile.content}
-                    theme="dark"
-                    showStats={true}
-                    fullHeight={true}
+                  <ResizablePanel
+                    left={
+                      <CodeBlock
+                        language={currentFile.language}
+                        filename={currentFile.name}
+                        code={currentFile.content}
+                        theme="dark"
+                        showStats={true}
+                        fullHeight={true}
+                      />
+                    }
+                    right={
+                      (() => {
+                        switch (activeFile) {
+                          case "about.tsx": return <AboutPreview />;
+                          case "experience.json": return <ExperiencePreview />;
+                          case "projects.ts": return <ProjectsPreview />;
+                          case "contact.css": return <ContactPreview />;
+                          default: return (
+                            <div className="flex items-center justify-center h-full text-gray-500">
+                              No preview available
+                            </div>
+                          );
+                        }
+                      })()
+                    }
+                    isPreviewVisible={true}
                   />
                 </div>
               </>

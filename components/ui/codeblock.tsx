@@ -129,7 +129,7 @@ export const CodeBlock = ({
           }
           backdrop-blur-lg backdrop-saturate-150
           ${theme === "dark"
-            ? "bg-slate-900/90 border border-slate-700/30"
+            ? "bg-slate-900/40 border border-slate-700/30"
             : "bg-white/90 border border-white/20 shadow-white/20"
           }
         `}

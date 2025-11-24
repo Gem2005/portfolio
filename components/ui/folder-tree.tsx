@@ -457,13 +457,10 @@ const Item: React.FC<ItemProps> = ({
             data-selected={isSelected ? "true" : "false"}
             data-id={id}
             className={cn(
-              "flex items-center gap-2 py-1.5 text-sm transition-colors cursor-pointer select-none",
-              getPaddingClass(level),
+              "flex items-center py-1 px-2 cursor-pointer select-none transition-colors duration-200",
+              "hover:bg-white/10 text-[#cccccc]",
+              isSelected && "bg-white/10 text-white font-medium",
               className,
-              isSelected
-                ? "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 border-r-2 border-blue-600"
-                : "",
-              !isSelected && "hover:bg-gray-100 dark:hover:bg-slate-700/50",
               keyboardMode && isFocused
                 ? "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
                 : "focus:outline-none"

@@ -18,7 +18,7 @@ const animationVariants: Variants = {
 const transitions = {
   root: { duration: 0.4 },
   item: { duration: 0.2 },
-  content: { duration: 0.3, ease: "easeInOut" },
+  content: { duration: 0.3, ease: "easeInOut" as const },
   chevron: { duration: 0.2 },
 };
 
@@ -346,7 +346,7 @@ const Root: React.FC<RootProps> = ({
               onFocus={handleTreeFocus}
               onBlur={handleTreeBlur}
             >
-              <div className="w-full overflow-y-auto bg-background text-sm">
+              <div className="w-full h-full overflow-y-auto bg-background text-sm">
                 {children}
               </div>
             </motion.div>
@@ -584,11 +584,5 @@ const Content: React.FC<ContentProps> = ({ children, className = "" }) => {
   );
 };
 
-const FolderTree = {
-  Root,
-  Item,
-  Trigger,
-  Content,
-};
-
-export default FolderTree;
+export { Root, Item, Trigger, Content };
+export default { Root, Item, Trigger, Content };

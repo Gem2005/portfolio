@@ -5,9 +5,7 @@ import { atomDark, oneLight } from "react-syntax-highlighter/dist/cjs/styles/pri
 import {
   Check,
   Copy,
-  ChevronRight,
   File,
-  Folder,
   Terminal,
   Code2,
   Download,
@@ -45,7 +43,6 @@ export const CodeBlock = ({
   code,
   highlightLines = [],
   tabs = [],
-  breadcrumb = [],
   showStats = true,
   theme = "dark",
   fullHeight = false,

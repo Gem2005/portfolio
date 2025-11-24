@@ -22,13 +22,13 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
 
     useEffect(() => {
         let delay = 0;
-        bootSequence.forEach((line, index) => {
+        bootSequence.forEach((line) => {
             delay += Math.random() * 300 + 100;
             setTimeout(() => {
                 setLines((prev) => [...prev, line]);
             }, delay);
         });
-    }, []);
+    }, [bootSequence]);
 
     return (
         <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-hidden relative z-10 select-none">

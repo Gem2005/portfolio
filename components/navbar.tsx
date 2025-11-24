@@ -10,7 +10,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const { theme, resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -107,9 +107,8 @@ export default function Navbar() {
               alt="Gem Signature"
               width={200}
               height={72}
-              className={`object-contain transition-opacity duration-300 ${
-                isDark ? "opacity-0" : "opacity-100"
-              }`}
+              className={`object-contain transition-opacity duration-300 ${isDark ? "opacity-0" : "opacity-100"
+                }`}
               priority
             />
             <Image
@@ -117,9 +116,8 @@ export default function Navbar() {
               alt="Gem Signature"
               width={200}
               height={72}
-              className={`object-contain absolute inset-0 transition-opacity duration-300 ${
-                isDark ? "opacity-100" : "opacity-0"
-              }`}
+              className={`object-contain absolute inset-0 transition-opacity duration-300 ${isDark ? "opacity-100" : "opacity-0"
+                }`}
               priority
             />
           </div>

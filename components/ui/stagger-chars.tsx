@@ -99,7 +99,7 @@ const StaggerChars = React.memo<StaggerCharsProps>(
 
     const [isHovered, setIsHovered] = React.useState(false);
     const [isAutoAnimating, setIsAutoAnimating] = React.useState(false);
-    const intervalRef = React.useRef<NodeJS.Timeout>();
+    const intervalRef = React.useRef<NodeJS.Timeout | undefined>(undefined);
 
     React.useEffect(() => {
       if (!isTouchDevice || disabled) return;
@@ -137,13 +137,13 @@ const StaggerChars = React.memo<StaggerCharsProps>(
         prefersReducedMotion
           ? { y: "0%" }
           : {
-              y: getTargetY(direction, isEven),
-              transition: {
-                duration,
-                delay: index * delay,
-                ease: easing,
-              },
+            y: getTargetY(direction, isEven),
+            transition: {
+              duration,
+              delay: index * delay,
+              ease: easing as [number, number, number, number],
             },
+          },
       exit: ({ isEven }: { index: number; isEven: boolean }) =>
         prefersReducedMotion
           ? { y: "0%" }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { X, Minus, ChevronUp, ChevronDown, Terminal as TerminalIcon } from "lucide-react";
+import { X, ChevronDown, Terminal as TerminalIcon } from "lucide-react";
 
 interface TerminalProps {
     isOpen: boolean;
@@ -28,7 +28,7 @@ export const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onMinimize,
 
     const handleCommand = (cmd: string) => {
         const trimmedCmd = cmd.trim().toLowerCase();
-        let output: string[] = [`$ ${cmd}`];
+        const output: string[] = [`$ ${cmd}`];
 
         switch (trimmedCmd) {
             case "help":

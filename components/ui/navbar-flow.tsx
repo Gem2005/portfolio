@@ -612,7 +612,7 @@ const NavbarFlow: React.FC<NavbarFlowProps> = ({
           >
             <div className="container py-4 px-4">
               <nav className="flex flex-col space-y-3">
-                {links.map((element, idx) => (
+                {links.map((element) => (
                   <div key={element.text} className="space-y-2">
                     {element.submenu ? (
                       <>

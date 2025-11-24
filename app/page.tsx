@@ -11,22 +11,17 @@ import { AboutPreview, ExperiencePreview, ProjectsPreview, ContactPreview } from
 import {
   Search,
   GitBranch,
-  Menu,
   Bell,
   UserCircle,
   Settings,
   X,
   Minus,
-  Square,
   LayoutTemplate,
   FileCode,
   Terminal as TerminalIcon,
-  Command,
-  ChevronRight,
   Download,
   Copy,
   Maximize2,
-  Minimize2,
   Github,
   Info
 } from "lucide-react";
@@ -150,7 +145,7 @@ export default function Home() {
                 </span>
                 {activeMenu === key && (
                   <div className="absolute top-full left-0 mt-1 w-64 bg-[#252526]/95 backdrop-blur-xl border border-[#454545] shadow-2xl rounded-md py-1 z-50">
-                    {items.map((item: any, i) => (
+                    {items.map((item: { separator?: boolean; label?: string; shortcut?: string; icon?: React.ComponentType<{ size: number }>; action?: () => void }, i) => (
                       item.separator ? (
                         <div key={i} className="h-[1px] bg-[#454545] my-1 mx-2" />
                       ) : (
@@ -158,7 +153,7 @@ export default function Home() {
                           key={i}
                           className="px-4 py-1.5 hover:bg-[#094771] hover:text-white cursor-pointer flex items-center justify-between group"
                           onClick={() => {
-                            item.action();
+                            item.action?.();
                             setActiveMenu(null);
                           }}
                         >

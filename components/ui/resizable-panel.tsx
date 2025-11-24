@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Maximize2, Minimize2, Columns, Code2, Eye } from "lucide-react";
+import { Columns, Code2, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ResizablePanelProps {

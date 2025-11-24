@@ -78,20 +78,6 @@ const useLevel = () => {
   return useContext(LevelContext);
 };
 
-const getPaddingClass = (level: number): string => {
-  const paddingMap: Record<number, string> = {
-    0: "pl-3",
-    1: "pl-8",
-    2: "pl-12",
-    3: "pl-16",
-    4: "pl-20",
-    5: "pl-24",
-    6: "pl-28",
-    7: "pl-32",
-  };
-  return paddingMap[level] || `pl-[${Math.min(level * 4 + 12, 48)}px]`;
-};
-
 interface CustomBadge {
   content: React.ReactNode;
   className?: string;
@@ -172,10 +158,7 @@ const Root: React.FC<RootProps> = ({
       .filter(Boolean) as string[];
   }, []);
 
-  const getAllItemIds = useCallback(() => {
-    const items = Array.from(treeRef.current?.querySelectorAll('[role="treeitem"]') || []);
-    return items.map(item => item.getAttribute('data-id')).filter(Boolean) as string[];
-  }, []);
+
 
   const [treeHasFocus, setTreeHasFocus] = useState(false);
 
@@ -599,4 +582,5 @@ const Content: React.FC<ContentProps> = ({ children, className = "" }) => {
 };
 
 export { Root, Item, Trigger, Content };
-export default { Root, Item, Trigger, Content };
+const FolderTreeComponents = { Root, Item, Trigger, Content };
+export default FolderTreeComponents;

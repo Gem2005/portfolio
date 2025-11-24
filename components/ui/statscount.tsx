@@ -50,7 +50,6 @@ const defaultTitle = "CREATE STUNNING INTERFACES WITH SCROLLX-UI COMPONENTS";
 function AnimatedCounter({
   value,
   suffix = "",
-  duration = 1,
   delay = 0,
   label,
 }: {
@@ -212,41 +211,41 @@ export default function StatsCount({
       </motion.div>
 
       <div className={cn("w-full max-w-6xl mx-auto")}>\n        <div
-          className={cn(
-            "flex flex-row items-stretch justify-between gap-2 sm:gap-4 lg:gap-8 w-full min-h-[120px] sm:min-h-[140px]"
-          )}
-        >
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className={cn(
-                "relative flex-1 min-w-0 flex flex-col justify-center h-full"
-              )}
-            >
-              <AnimatedCounter
-                value={stat.value}
-                suffix={stat.suffix}
-                duration={stat.duration}
-                delay={index}
-                label={stat.label}
+        className={cn(
+          "flex flex-row items-stretch justify-between gap-2 sm:gap-4 lg:gap-8 w-full min-h-[120px] sm:min-h-[140px]"
+        )}
+      >
+        {stats.map((stat, index) => (
+          <div
+            key={index}
+            className={cn(
+              "relative flex-1 min-w-0 flex flex-col justify-center h-full"
+            )}
+          >
+            <AnimatedCounter
+              value={stat.value}
+              suffix={stat.suffix}
+              duration={stat.duration}
+              delay={index}
+              label={stat.label}
+            />
+            {index < stats.length - 1 && showDividers && (
+              <motion.div
+                className={cn(
+                  "absolute -right-1 sm:-right-2 lg:-right-4 top-1/2 transform -translate-y-1/2 h-12 sm:h-16 lg:h-20 w-px bg-gray-200 dark:bg-gray-700"
+                )}
+                initial={{ opacity: 0, scaleY: 0 }}
+                animate={
+                  isInView
+                    ? { opacity: 1, scaleY: 1 }
+                    : { opacity: 0, scaleY: 0 }
+                }
+                transition={{ delay: 1.5 + index * 0.2, duration: 0.6 }}
               />
-              {index < stats.length - 1 && showDividers && (
-                <motion.div
-                  className={cn(
-                    "absolute -right-1 sm:-right-2 lg:-right-4 top-1/2 transform -translate-y-1/2 h-12 sm:h-16 lg:h-20 w-px bg-gray-200 dark:bg-gray-700"
-                  )}
-                  initial={{ opacity: 0, scaleY: 0 }}
-                  animate={
-                    isInView
-                      ? { opacity: 1, scaleY: 1 }
-                      : { opacity: 0, scaleY: 0 }
-                  }
-                  transition={{ delay: 1.5 + index * 0.2, duration: 0.6 }}
-                />
-              )}
-            </div>
-          ))}
-        </div>
+            )}
+          </div>
+        ))}
+      </div>
       </div>
     </motion.section>
   );

@@ -111,18 +111,26 @@ export const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onMinimize,
                         {line}
                     </div>
                 ))}
-                <div className="flex items-center gap-2">
-                    <span className="text-green-500">➜</span>
+                <div className="flex items-center">
+                    <span className="text-green-500">guest@portfolio</span>
+                    <span className="text-[#cccccc]">:</span>
                     <span className="text-blue-400">~</span>
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        className="flex-1 bg-transparent border-none outline-none text-[#cccccc] font-mono ml-1"
-                        autoFocus
-                    />
+                    <span className="text-[#cccccc]">$ </span>
+                    <div className="relative flex-1 ml-2 group">
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-text z-10"
+                            autoFocus
+                        />
+                        <div className="flex items-center">
+                            <span>{input}</span>
+                            <span className="w-2.5 h-5 bg-[#cccccc] animate-pulse ml-0.5" />
+                        </div>
+                    </div>
                 </div>
                 <div ref={bottomRef} />
             </div>

@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import * as FolderTree from "@/components/ui/folder-tree";
 import { CodeBlock } from "@/components/ui/codeblock";
 import { Terminal } from "@/components/ui/terminal";
+import { WelcomeScreen } from "@/components/ui/welcome-screen";
 import { files } from "@/lib/data";
 import {
   Search,
@@ -278,32 +279,7 @@ export default function Home() {
               </>
             ) : (
               /* Empty State / Welcome Screen */
-              <div className="flex-1 flex flex-col items-center justify-center text-[#858585] p-8 select-none">
-                <div className="mb-8 opacity-20">
-                  <img src="/vscode-icon.svg" alt="VS Code" className="w-48 h-48 grayscale" onError={(e) => e.currentTarget.style.display = 'none'} />
-                </div>
-                <h1 className="text-2xl font-medium text-[#cccccc] mb-2">Visual Studio Code</h1>
-                <p className="text-sm mb-8">Editing evolved</p>
-
-                <div className="flex flex-col gap-2 text-sm max-w-md w-full">
-                  <div className="flex justify-between items-center">
-                    <span>Show All Commands</span>
-                    <div className="flex gap-1"><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">Ctrl</span><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">Shift</span><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">P</span></div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span>Go to File</span>
-                    <div className="flex gap-1"><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">Ctrl</span><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">P</span></div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span>Find in Files</span>
-                    <div className="flex gap-1"><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">Ctrl</span><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">Shift</span><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">F</span></div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span>Toggle Terminal</span>
-                    <div className="flex gap-1"><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">Ctrl</span><span className="bg-[#333] px-1.5 py-0.5 rounded text-xs">`</span></div>
-                  </div>
-                </div>
-              </div>
+              <WelcomeScreen onNavigate={handleFileSelect} />
             )}
 
             {/* Terminal Splitter and Component */}

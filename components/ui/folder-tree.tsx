@@ -444,6 +444,8 @@ const Item: React.FC<ItemProps> = ({
     );
   };
 
+  const paddingLeft = level * 12 + 12; // 12px per level + 12px base
+
   return (
     <ItemContext.Provider value={itemContextValue}>
       <LevelContext.Provider value={{ level: level + 1 }}>
@@ -456,8 +458,9 @@ const Item: React.FC<ItemProps> = ({
             transition={{ ...transitions.item, delay: level * 0.05 }}
             data-selected={isSelected ? "true" : "false"}
             data-id={id}
+            style={{ paddingLeft: `${paddingLeft}px` }}
             className={cn(
-              "flex items-center py-1 px-2 cursor-pointer select-none transition-colors duration-200",
+              "flex items-center py-1 pr-2 cursor-pointer select-none transition-colors duration-200",
               "hover:bg-white/10 text-[#cccccc]",
               isSelected && "bg-white/10 text-white font-medium",
               className,
@@ -480,7 +483,7 @@ const Item: React.FC<ItemProps> = ({
           >
             {hasChildren && (
               <motion.span
-                className="flex-shrink-0 cursor-pointer"
+                className="flex-shrink-0 cursor-pointer mr-1"
                 variants={animationVariants}
                 animate={isExpanded ? "chevronOpen" : "chevronClosed"}
                 transition={transitions.chevron}
@@ -489,19 +492,19 @@ const Item: React.FC<ItemProps> = ({
                 <ChevronRight size={14} className="text-gray-500 dark:text-gray-400" />
               </motion.span>
             )}
-            {!hasChildren && <span className="w-3 mr-2" aria-hidden="true" />}
+            {!hasChildren && <span className="w-4 mr-1" aria-hidden="true" />}
             {IconComponent && (
               <IconComponent
                 size={16}
                 data-selected={isSelected ? "true" : "false"}
                 data-child={hasChildren ? "true" : "false"}
                 className={cn(
-                  "mr-1 flex-shrink-0 text-gray-500 data-[child=true]:text-blue-500 data-[selected=true]:text-blue-600 dark:data-[selected=true]:text-blue-400"
+                  "mr-2 flex-shrink-0 text-gray-500 data-[child=true]:text-blue-500 data-[selected=true]:text-blue-600 dark:data-[selected=true]:text-blue-400"
                 )}
                 aria-hidden="true"
               />
             )}
-            <span className="flex-1">{label}</span>
+            <span className="flex-1 truncate">{label}</span>
             {badge && (
               <span
                 className="ml-auto text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full"
@@ -521,7 +524,21 @@ const Item: React.FC<ItemProps> = ({
               "ml-auto text-xs bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-200 px-2 py-0.5 rounded-full"
             )}
           </motion.div>
-          {children}
+          <AnimatePresence>
+            {hasChildren && isExpanded && (
+              <motion.div
+                variants={animationVariants}
+                initial="contentHidden"
+                animate="contentVisible"
+                exit="contentHidden"
+                transition={transitions.content}
+                style={{ overflow: "hidden" }}
+                role="group"
+              >
+                {children}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </LevelContext.Provider>
     </ItemContext.Provider>

@@ -139,130 +139,6 @@ export const CodeBlock = ({
             : "blur(16px) saturate(150%)"
         }}
       >
-        <div
-          className={`flex items-stretch min-h-[3rem] backdrop-blur-sm ${theme === "dark"
-            ? "bg-slate-800/30 border-b border-slate-700/30"
-            : "bg-white/5 border-b border-white/10"
-            }`}
-          style={{
-            backdropFilter: theme === "light"
-              ? "blur(10px) saturate(120%) brightness(105%)"
-              : undefined
-          }}
-        >
-          <div className="flex-1 flex items-center min-w-0 px-3">
-            <div className="flex gap-2 mr-3 shrink-0">
-              <div className={`w-3 h-3 rounded-full shadow-sm ${theme === "dark" ? "bg-red-500/80" : "bg-red-400/90 shadow-red-200/50"
-                }`}></div>
-              <div className={`w-3 h-3 rounded-full shadow-sm ${theme === "dark" ? "bg-yellow-500/80" : "bg-yellow-400/90 shadow-yellow-200/50"
-                }`}></div>
-              <div className={`w-3 h-3 rounded-full shadow-sm ${theme === "dark" ? "bg-green-500/80" : "bg-green-400/90 shadow-green-200/50"
-                }`}></div>
-            </div>
-
-            {breadcrumb.length > 0 && (
-              <div className="flex items-center min-w-0">
-                <Folder
-                  size="1em"
-                  className={`shrink-0 ${theme === "dark" ? "text-slate-300/80" : "text-gray-700/90"
-                    }`}
-                />
-                <div className="flex items-center min-w-0 ml-2">
-                  {breadcrumb.map((crumb, index) => (
-                    <React.Fragment key={index}>
-                      <span
-                        className={`text-xs truncate ${theme === "dark" ? "text-slate-300/80" : "text-gray-700/90"
-                          }`}
-                      >
-                        {crumb}
-                      </span>
-                      {index < breadcrumb.length - 1 && (
-                        <ChevronRight
-                          size="0.75em"
-                          className={`shrink-0 mx-1 ${theme === "dark" ? "text-slate-400/80" : "text-gray-600/80"
-                            }`}
-                        />
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="flex items-center justify-end shrink-0 px-2">
-            {stats && (
-              <div
-                className={`text-xs mx-2 truncate hidden md:block ${theme === "dark" ? "text-slate-300/80" : "text-gray-700/90"
-                  }`}
-              >
-                {stats.lines}L • {stats.words}W
-              </div>
-            )}
-
-            <div className="flex">
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className={`p-2 transition-all duration-200 rounded-md backdrop-blur-sm ${theme === "dark"
-                  ? "hover:bg-slate-700/40"
-                  : "hover:bg-white/20 hover:shadow-md"
-                  }`}
-                title={isExpanded ? "Exit fullscreen" : "Toggle fullscreen"}
-              >
-                {isExpanded ? (
-                  <Minimize2
-                    size="1em"
-                    className={
-                      theme === "dark" ? "text-slate-300/90" : "text-gray-700/90"
-                    }
-                  />
-                ) : (
-                  <Maximize2
-                    size="1em"
-                    className={
-                      theme === "dark" ? "text-slate-300/90" : "text-gray-700/90"
-                    }
-                  />
-                )}
-              </button>
-              <button
-                onClick={downloadCode}
-                className={`p-2 transition-all duration-200 rounded-md backdrop-blur-sm ${theme === "dark"
-                  ? "hover:bg-slate-700/40"
-                  : "hover:bg-white/20 hover:shadow-md"
-                  }`}
-                title="Download code"
-              >
-                <Download
-                  size="1em"
-                  className={
-                    theme === "dark" ? "text-slate-300/90" : "text-gray-700/90"
-                  }
-                />
-              </button>
-              <button
-                onClick={copyToClipboard}
-                className={`p-2 transition-all duration-200 rounded-md backdrop-blur-sm ${theme === "dark"
-                  ? "hover:bg-slate-700/40"
-                  : "hover:bg-white/20 hover:shadow-md"
-                  }`}
-                title="Copy code"
-              >
-                {copied ? (
-                  <Check size="1em" className="text-green-500" />
-                ) : (
-                  <Copy
-                    size="1em"
-                    className={
-                      theme === "dark" ? "text-slate-300/90" : "text-gray-700/90"
-                    }
-                  />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-
         {tabsExist && (
           <div
             className={`flex border-b backdrop-blur-sm overflow-x-auto ${theme === "dark"
@@ -297,7 +173,7 @@ export const CodeBlock = ({
 
         {!tabsExist && filename && (
           <div
-            className={`flex items-center px-3 py-2 border-b backdrop-blur-sm ${theme === "dark"
+            className={`flex items-center justify-between px-3 py-2 border-b backdrop-blur-sm ${theme === "dark"
               ? "border-slate-700/30 bg-slate-800/20"
               : "border-white/10 bg-white/5"
               }`}
@@ -315,6 +191,50 @@ export const CodeBlock = ({
               >
                 {filename}
               </span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              {stats && (
+                <div
+                  className={`text-xs truncate hidden md:block ${theme === "dark" ? "text-slate-400/60" : "text-gray-600/70"
+                    }`}
+                >
+                  {stats.lines}L • {stats.words}W
+                </div>
+              )}
+
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className={`p-1.5 transition-all duration-200 rounded-md ${theme === "dark"
+                    ? "hover:bg-slate-700/40 text-slate-400 hover:text-slate-200"
+                    : "hover:bg-white/20 text-gray-600 hover:text-gray-800"
+                    }`}
+                  title={isExpanded ? "Exit fullscreen" : "Toggle fullscreen"}
+                >
+                  {isExpanded ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+                </button>
+                <button
+                  onClick={downloadCode}
+                  className={`p-1.5 transition-all duration-200 rounded-md ${theme === "dark"
+                    ? "hover:bg-slate-700/40 text-slate-400 hover:text-slate-200"
+                    : "hover:bg-white/20 text-gray-600 hover:text-gray-800"
+                    }`}
+                  title="Download code"
+                >
+                  <Download size={14} />
+                </button>
+                <button
+                  onClick={copyToClipboard}
+                  className={`p-1.5 transition-all duration-200 rounded-md ${theme === "dark"
+                    ? "hover:bg-slate-700/40 text-slate-400 hover:text-slate-200"
+                    : "hover:bg-white/20 text-gray-600 hover:text-gray-800"
+                    }`}
+                  title="Copy code"
+                >
+                  {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+                </button>
+              </div>
             </div>
           </div>
         )}
